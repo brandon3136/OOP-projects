@@ -48,9 +48,9 @@ void addStudent()
     cin.ignore();
     StudentStruct s;
 
-    for (int i = 0; i < numStudents; i++)
+    for (int i = 1; i <= numStudents; i++)
     {
-
+        cout << "\t\t\tSTUDENT " << i << endl;
         cout << "Enter the full name of the student: ";
         getline(cin, s.name);
 
@@ -75,25 +75,31 @@ void deleteStudent()
     string r;
     bool found = false;
 
-    cout << "Enter the student's registration number to delete: ";
-    cin >> r;
-    for (auto i = studentVect.begin(); i != studentVect.end(); i++)
+    if (studentVect.empty())
     {
-        if (i->regNumber == r)
+        cout << "Student data not found!, unable to delete students' details" << endl;
+    }
+    else
+    {
+        cout << "Enter the student's registration number to delete: ";
+        cin >> r;
+        for (auto i = studentVect.begin(); i != studentVect.end(); i++)
         {
-            found = true;
-            studentVect.erase(i);
-            saveStudents(studentVect);
-            cout << "The student has been deleted successfully\n"
+            if (i->regNumber == r)
+            {
+                found = true;
+                studentVect.erase(i);
+                saveStudents(studentVect);
+                cout << "The student has been deleted successfully\n"
+                     << endl;
+            }
+        }
+        if (!found)
+        {
+            cout << "The student is not found!"
                  << endl;
         }
     }
-    if (!found)
-    {
-        cout << "The student is not found!\n"
-             << endl;
-    }
-    // cout << "This service is currently not available\n\n " << endl;
 }
 
 vector<StudentStruct> loadStudent()
@@ -104,11 +110,8 @@ vector<StudentStruct> loadStudent()
     if (file.is_open())
     {
         StudentStruct s;
-        // string regNumString;
-
         while (getline(file, s.regNumber))
         {
-            // s.regNumber = stoll(regNumString);
             getline(file, s.name);
             getline(file, s.phoneNo);
             studentsVect.push_back(s);
@@ -124,14 +127,14 @@ void readStudent()
     vector<StudentStruct> studentVect = loadStudent();
     int count = 1;
 
-    cout << "\n---------- Student Details --------" << endl;
-    cout << left << setw(5) << "No."
-         << setw(40) << "Student's Name"
-         << setw(20) << "Registration No."
-         << setw(20) << "Phone No." << endl;
-
     if (!studentVect.empty())
     {
+        cout << "\n---------- Student Details --------" << endl;
+        cout << left << setw(5) << "No."
+             << setw(40) << "Student's Name"
+             << setw(20) << "Registration No."
+             << setw(20) << "Phone No." << endl;
+
         for (const auto &s : studentVect)
         {
             cout << left << setw(5) << count;
@@ -141,10 +144,9 @@ void readStudent()
     }
     else
     {
-        cout << "Student data not found" << endl;
+        cout << "Student data not found!, unable to read students' details" << endl;
     }
     cout << endl;
-    // cout << "This service is currently not available\n\n"<< endl;
 }
 
 void saveStudents(const vector<StudentStruct> &studentsVect)
@@ -214,7 +216,7 @@ void attendance()
         string date;
         string tempReg;
         vector<string> tempVect;
-        bool already = false;
+        int count = 1;
 
         ofstream file(attendanceFile);
         cout << "Enter the date: ";
@@ -222,27 +224,31 @@ void attendance()
         getline(cin, date);
         if (file.is_open())
         {
-            file << "DATE: " << date;
+            file << "DATE: " << date << endl;
+            file << left << setw(5) << "No."
+                 << setw(30) << "Student's name"
+                 << setw(20) << "Registration No."
+                 << setw(20) << "Phone No."
+                 << endl;
         }
 
         while (true)
         {
-
             cout << "Enter registration no. (To exit press \'quit\') : ";
             getline(cin, tempReg);
+            bool already = false;
 
             if (tempReg == "quit")
             {
-                cout << "\nExiting from adding present students" << endl;
+                cout << "\nExiting from adding present students, go to \"attendance.txt\" for the attendance made" << endl;
                 break;
             }
             else
             {
                 bool found = false;
-
-                for (auto i = studentVect.begin(); i != studentVect.end(); i++)
+                for (auto &i : studentVect)
                 {
-                    if (i->regNumber == tempReg)
+                    if (i.regNumber == tempReg)
                     {
                         for (string s : tempVect)
                         {
@@ -259,6 +265,15 @@ void attendance()
 
                             found = true;
                             cout << "ACCEPT" << endl;
+                            if (file.is_open())
+                            {
+                                file << left << setw(5) << count
+                                     << setw(30) << i.name
+                                     << setw(20) << i.regNumber
+                                     << setw(20) << i.phoneNo
+                                     << endl;
+                            }
+                            count += 1;
                         }
                     }
                 }
@@ -271,9 +286,6 @@ void attendance()
         file.close();
         mainMenu();
     }
-
-    // cout << "\nSorry this service is not available yet!!\n"<< endl;
-    //  not yet used
 }
 
 void mainMenu()
@@ -288,6 +300,7 @@ void mainMenu()
         cout << "3. Exit" << endl;
         cout << "Enter your choice (1-3): ";
         cin >> opt;
+        cin.ignore();
 
         switch (opt)
         {
