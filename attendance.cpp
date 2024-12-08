@@ -7,6 +7,7 @@
 using namespace std;
 const string studentDb = "studentsDb.txt";
 const string attendanceFile = "attendance.txt";
+int opt = 0;
 
 struct StudentStruct
 {
@@ -178,7 +179,7 @@ void studentDetailsMenu()
 
         cout << "Enter your choice (1-4): ";
         cin >> choice;
-        cin.ignore();
+        cin.clear();
 
         switch (choice)
         {
@@ -192,7 +193,7 @@ void studentDetailsMenu()
             readStudent();
             break;
         case 4:
-            cout << endl;
+            cin.clear();
             mainMenu();
             break;
         default:
@@ -290,8 +291,6 @@ void attendance()
 
 void mainMenu()
 {
-    int opt = 0;
-
     while (opt != 3)
     {
         cout << "------ MAIN MENU -------" << endl;
@@ -300,7 +299,6 @@ void mainMenu()
         cout << "3. Exit" << endl;
         cout << "Enter your choice (1-3): ";
         cin >> opt;
-        cin.ignore();
 
         switch (opt)
         {
@@ -311,10 +309,10 @@ void mainMenu()
             attendance();
             break;
         case 3:
-            cout << "Exiting..." << endl;
+            cout << "Exiting...";
             break;
         default:
-            cout << "\nWrong Input!, please input (1-4)\n"
+            cout << "\nWrong Input!, please input (1-3)\n"
                  << endl;
             break;
         }
