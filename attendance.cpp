@@ -7,7 +7,17 @@
 using namespace std;
 const string studentDb = "studentsDb.txt";
 const string attendanceFile = "attendance.txt";
+const string signFile = "Account Info.txt";
 int opt = 0;
+
+struct SignStruct
+{
+    string username;
+    string year;
+    string programme;
+    string semester;
+    vector<string> course;
+};
 
 struct StudentStruct
 {
@@ -23,6 +33,7 @@ struct StudentStruct
     }
 };
 
+vector<SignStruct> sign;
 void addStudent();
 void deleteStudent();
 vector<StudentStruct> loadStudent();
@@ -31,11 +42,18 @@ void saveStudents(const vector<StudentStruct> &studentsVect);
 void studentDetailsMenu();
 void attendance();
 void mainMenu();
+void signing();
 
 int main()
 {
+
     cout << "WELCOME TO THE ATTENDANCE SYSTEM\n"
          << endl;
+
+    if (sign.empty())
+    {
+        signing();
+    }
     mainMenu();
     return 0;
 }
@@ -213,6 +231,7 @@ void attendance()
     }
     else
     {
+        cout << "\n--------Making an Attendace---------" << endl;
         bool cont = false;
         string date;
         string tempReg;
@@ -241,7 +260,8 @@ void attendance()
 
             if (tempReg == "quit")
             {
-                cout << "\nExiting from adding present students, go to \"attendance.txt\" for the attendance made" << endl;
+                cout << "\nExiting from adding present students, go to \"attendance.txt\" for the attendance made\n"
+                     << endl;
                 break;
             }
             else
@@ -317,4 +337,54 @@ void mainMenu()
             break;
         }
     }
+}
+
+void signing()
+{
+    cout << "-------- Sign In to the attendance system -------" << endl;
+    SignStruct s;
+
+    cout << "Enter your Name: ";
+    getline(cin, s.username);
+
+    cout << "Enter name of the Programme: ";
+    cin.ignore();
+    getline(cin, s.programme);
+    cout << endl;
+
+    int yearChoice = 0;
+    do
+    {
+        string year;
+        cout << "Year of study" << endl;
+        cout << "1. First Year" << endl;
+        cout << "2. Second Year" << endl;
+        cout << "3. Third Year" << endl;
+        cout << "4. Fourth Year\n"
+             << endl;
+
+        cout << "Enter your choice(1-4): ";
+        cin >> yearChoice;
+
+        switch (yearChoice)
+        {
+        case 1:
+            year = "First Year";
+            break;
+        case 2:
+            year = "Second Year";
+            break;
+        case 3:
+            year = "Third Year";
+            break;
+
+        case 4:
+            year = "Fourth Year";
+            break;
+        default:
+            cout << "\nWrong Input!, Try again\n"
+                 << endl;
+            break;
+        }
+    } while (!(yearChoice <= 4 && yearChoice > 0));
 }
