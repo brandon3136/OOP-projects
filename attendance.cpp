@@ -19,7 +19,8 @@ struct SignStruct
     string semester;
     vector<string> course;
 
-    void clearingData(){
+    void clearingData()
+    {
         alreadySigned = false;
         string username = "";
         string year = "";
@@ -68,7 +69,7 @@ int main()
     {
         signing();
     }
-
+    cout << "Hello, " << s.username << endl;
     mainMenu();
     return 0;
 }
@@ -240,6 +241,7 @@ void studentDetailsMenu()
 void attendance()
 {
     vector<StudentStruct> studentVect = loadStudent();
+    SignStruct s = loadSignDetails();
     if (studentVect.empty())
     {
         cout << "No student data found, Unable to make an attendance file" << endl;
@@ -259,7 +261,10 @@ void attendance()
         getline(cin, date);
         if (file.is_open())
         {
-            file << "DATE: " << date << endl;
+            file << "PROGRAMME: " << s.programme << endl;
+            file << "SEMESTER: " << s.semester << endl;
+            file << "DATE: " << date << endl
+                 << endl;
             file << left << setw(5) << "No."
                  << setw(30) << "Student's name"
                  << setw(20) << "Registration No."
@@ -286,9 +291,9 @@ void attendance()
                 {
                     if (i.regNumber == tempReg)
                     {
-                        for (string s : tempVect)
+                        for (string r : tempVect)
                         {
-                            if (tempReg == s)
+                            if (tempReg == r)
                             {
                                 already = true;
                                 cout << "This student has already been added" << endl;
