@@ -403,22 +403,16 @@ void signing()
         switch (semChoice)
         {
         case 1:
-            year = "First Year";
+            s.semester = "I";
             break;
         case 2:
-            year = "Second Year";
+            s.semester = "II";
             break;
-        case 3:
-            year = "Third Year";
-            break;
-
-        case 4:
-            year = "Fourth Year";
-            break;
+        
         default:
             cout << "\nWrong Input!, Try again\n"
                  << endl;
             break;
         }
-    } while (!(yearChoice <= 4 && yearChoice > 0));
+    } while (!(semChoice <= 2 && semChoice > 0));
 }
