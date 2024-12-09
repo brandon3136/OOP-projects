@@ -349,7 +349,6 @@ void signing()
     getline(cin, s.username);
 
     cout << "Enter name of the Programme: ";
-    cin.ignore();
     getline(cin, s.programme);
     cout << endl;
 
@@ -419,13 +418,14 @@ void signing()
     cin >> numCourse;
 
     cout << "Enter the courses below:" << endl;
+    cin.ignore();
 
     for (int i = 1; i <= numCourse; i++)
     {
         string courseTemp;
         cout << i << " - ";
-        cin.ignore();
         getline(cin, courseTemp);
+
 
         s.course.push_back(courseTemp);
     }
