@@ -12,6 +12,7 @@ int opt = 0;
 
 struct SignStruct
 {
+    bool alreadySigned = false;
     string username;
     string year;
     string programme;
@@ -33,7 +34,6 @@ struct StudentStruct
     }
 };
 
-vector<SignStruct> sign;
 void addStudent();
 void deleteStudent();
 vector<StudentStruct> loadStudent();
@@ -43,6 +43,7 @@ void studentDetailsMenu();
 void attendance();
 void mainMenu();
 void signing();
+SignStruct loadSignDetails();
 
 int main()
 {
@@ -50,7 +51,11 @@ int main()
     cout << "WELCOME TO THE ATTENDANCE SYSTEM\n"
          << endl;
 
-    if (sign.empty())
+    SignStruct s = loadSignDetails();
+
+    // cout << s.alreadySigned<<endl;
+
+    if (!s.alreadySigned)
     {
         signing();
     }
@@ -426,24 +431,50 @@ void signing()
         cout << i << " - ";
         getline(cin, courseTemp);
 
-
         s.course.push_back(courseTemp);
     }
+
+    s.alreadySigned = true;
 
     ofstream file(signFile);
     if (file.is_open())
     {
         file << s.username << endl
-             << s.year << endl
              << s.programme << endl
-             << s.semester << endl;
+             << s.year << endl
+             << s.semester << endl
+             << s.alreadySigned << endl;
 
-        for(auto& i : s.course){
+        for (auto &i : s.course)
+        {
             file << i << endl;
         }
     }
 
-
     cout << "------ sign in complete, Enjoy our program -------\n"
          << endl;
+}
+
+SignStruct loadSignDetails()
+{
+    SignStruct s;
+
+    ifstream file(signFile);
+    if (file.is_open())
+    {
+        getline(file, s.username);
+        getline(file, s.programme);
+        getline(file, s.year);
+        getline(file, s.semester);
+
+        file >> s.alreadySigned;
+
+        string courseTemp;
+
+        while (getline(file, courseTemp))
+        {
+            s.course.push_back(courseTemp);
+        }
+    }
+    return s;
 }
