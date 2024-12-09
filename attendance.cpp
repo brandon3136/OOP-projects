@@ -51,9 +51,9 @@ int main()
          << endl;
 
     if (sign.empty())
-        {
-            signing();
-        }
+    {
+        signing();
+    }
 
     mainMenu();
     return 0;
@@ -391,10 +391,10 @@ void signing()
     int semChoice = 0;
     do
     {
-        cout << "Semester" << endl;
+        cout << "\nSemester" << endl;
         cout << "1. Semester I" << endl;
         cout << "2. Semester II" << endl;
-       
+
         cout << "Enter your choice(1-2): ";
         cin >> semChoice;
 
@@ -406,7 +406,7 @@ void signing()
         case 2:
             s.semester = "II";
             break;
-        
+
         default:
             cout << "\nWrong Input!, Try again\n"
                  << endl;
@@ -418,16 +418,32 @@ void signing()
     cout << "Number of courses(modules) do you have for this semester? : ";
     cin >> numCourse;
 
-    cout << "Enter the courses below:"<<endl;
+    cout << "Enter the courses below:" << endl;
 
-    for (int i = 1; i <= numCourse;i++){
+    for (int i = 1; i <= numCourse; i++)
+    {
         string courseTemp;
-        cout << i << "- ";
+        cout << i << " - ";
         cin.ignore();
         getline(cin, courseTemp);
 
         s.course.push_back(courseTemp);
     }
 
-    cout << "------ sign in complete, Enjoy our program ------";
+    ofstream file(signFile);
+    if (file.is_open())
+    {
+        file << s.username << endl
+             << s.year << endl
+             << s.programme << endl
+             << s.semester << endl;
+
+        for(auto& i : s.course){
+            file << i << endl;
+        }
+    }
+
+
+    cout << "------ sign in complete, Enjoy our program -------\n"
+         << endl;
 }
