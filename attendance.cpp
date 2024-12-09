@@ -356,7 +356,6 @@ void signing()
     int yearChoice = 0;
     do
     {
-        string year;
         cout << "Year of study" << endl;
         cout << "1. First Year" << endl;
         cout << "2. Second Year" << endl;
@@ -392,7 +391,6 @@ void signing()
     int semChoice = 0;
     do
     {
-        string year;
         cout << "Semester" << endl;
         cout << "1. Semester I" << endl;
         cout << "2. Semester II" << endl;
@@ -415,4 +413,21 @@ void signing()
             break;
         }
     } while (!(semChoice <= 2 && semChoice > 0));
+
+    int numCourse = 0;
+    cout << "Number of courses(modules) do you have for this semester? : ";
+    cin >> numCourse;
+
+    cout << "Enter the courses below:"<<endl;
+
+    for (int i = 1; i <= numCourse;i++){
+        string courseTemp;
+        cout << i << "- ";
+        cin.ignore();
+        getline(cin, courseTemp);
+
+        s.course.push_back(courseTemp);
+    }
+
+    cout << "------ sign in complete, Enjoy our program ------";
 }
