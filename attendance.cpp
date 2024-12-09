@@ -18,6 +18,15 @@ struct SignStruct
     string programme;
     string semester;
     vector<string> course;
+
+    void clearingData(){
+        alreadySigned = false;
+        string username = "";
+        string year = "";
+        string programme = "";
+        string semester = "";
+        course.clear();
+    }
 };
 
 struct StudentStruct
@@ -317,14 +326,16 @@ void attendance()
 
 void mainMenu()
 {
-    while (opt != 3)
+    while (opt != 4)
     {
         cout << "------ MAIN MENU -------" << endl;
         cout << "1. Issues about student details" << endl;
         cout << "2. Make an attendance" << endl;
-        cout << "3. Exit" << endl;
+        cout << "3. Change the sign-in info" << endl;
+        cout << "4. Exit" << endl;
         cout << "Enter your choice (1-3): ";
         cin >> opt;
+        SignStruct s = loadSignDetails();
 
         switch (opt)
         {
@@ -335,10 +346,14 @@ void mainMenu()
             attendance();
             break;
         case 3:
+            s.clearingData();
+            signing();
+            break;
+        case 4:
             cout << "Exiting...";
             break;
         default:
-            cout << "\nWrong Input!, please input (1-3)\n"
+            cout << "\nWrong Input!, please input (1-4)\n"
                  << endl;
             break;
         }
@@ -351,6 +366,7 @@ void signing()
     SignStruct s;
 
     cout << "Enter your Name: ";
+    cin.ignore();
     getline(cin, s.username);
 
     cout << "Enter name of the Programme: ";
