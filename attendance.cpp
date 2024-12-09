@@ -49,11 +49,12 @@ int main()
 
     cout << "WELCOME TO THE ATTENDANCE SYSTEM\n"
          << endl;
-
+    /*
     if (sign.empty())
-    {
-        signing();
-    }
+        {
+            signing();
+        }*/
+
     mainMenu();
     return 0;
 }
