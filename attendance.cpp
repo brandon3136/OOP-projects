@@ -49,11 +49,11 @@ int main()
 
     cout << "WELCOME TO THE ATTENDANCE SYSTEM\n"
          << endl;
-    /*
+
     if (sign.empty())
         {
             signing();
-        }*/
+        }
 
     mainMenu();
     return 0;
@@ -368,6 +368,39 @@ void signing()
         cin >> yearChoice;
 
         switch (yearChoice)
+        {
+        case 1:
+            s.year = "First Year";
+            break;
+        case 2:
+            s.year = "Second Year";
+            break;
+        case 3:
+            s.year = "Third Year";
+            break;
+
+        case 4:
+            s.year = "Fourth Year";
+            break;
+        default:
+            cout << "\nWrong Input!, Try again\n"
+                 << endl;
+            break;
+        }
+    } while (!(yearChoice <= 4 && yearChoice > 0));
+
+    int semChoice = 0;
+    do
+    {
+        string year;
+        cout << "Semester" << endl;
+        cout << "1. Semester I" << endl;
+        cout << "2. Semester II" << endl;
+       
+        cout << "Enter your choice(1-2): ";
+        cin >> semChoice;
+
+        switch (semChoice)
         {
         case 1:
             year = "First Year";
