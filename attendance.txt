@@ -1,0 +1,4 @@
+DATE: 09/122024
+No.  Student's name                Registration No.    Phone No.           
+1    Johnson Albert                23100523140002      0716669969          
+2    Peter Paul                    23100523140012      0715789201          
