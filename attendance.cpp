@@ -28,6 +28,15 @@ struct SignStruct
         string semester = "";
         course.clear();
     }
+    void deleteAccount(){
+        ofstream file(signFile, ios::trunc);
+        if(file.is_open()){
+            cout << "The account details have been deleted"<<endl;
+        }else{
+            cout << "The account details have not been deleted" << endl;
+        }
+        file.close();
+    }
 };
 
 struct StudentStruct
@@ -54,6 +63,8 @@ void attendance();
 void mainMenu();
 void signing();
 SignStruct loadSignDetails();
+void accountDetails();
+void viewAccountDetails();
 
 int main()
 {
@@ -360,7 +371,7 @@ void mainMenu()
         cout << "------ MAIN MENU -------" << endl;
         cout << "1. Issues about student details" << endl;
         cout << "2. Make an attendance" << endl;
-        cout << "3. Change the sign-in info" << endl;
+        cout << "3. Account details" << endl;
         cout << "4. Exit" << endl;
         cout << "Enter your choice (1-3): ";
         cin >> opt;
@@ -375,7 +386,7 @@ void mainMenu()
             attendance();
             break;
         case 3:
-            s.clearingData();
+            accountDetails();
             signing();
             break;
         case 4:
@@ -522,4 +533,39 @@ SignStruct loadSignDetails()
         }
     }
     return s;
+}
+
+void accountDetails(){
+    int choice;
+    SignStruct s = loadSignDetails();
+    
+    do{
+        cout << "\n------ Account Details ---------"<< endl;
+        cout << "1. Change account details" << endl;
+        cout << "2. View the account details" << endl;
+        cout << "3. Delete Account" << endl;
+        cout << "4. Go to main menu\n" << endl;
+
+        cout << "Enter your choice(1-4): ";
+        cin >> choice;
+
+        switch(choice){
+            case 1:
+                s.clearingData();
+                signing();
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                s.deleteAccount();
+                break;
+                }
+    } while (true);
+}
+
+
+void viewAccountDetails(){
+    SignStruct s = loadSignDetails();
+    if(!)
 }
