@@ -259,6 +259,16 @@ void attendance()
         cout << "Enter the date: ";
         cin.ignore();
         getline(cin, date);
+
+        cout << "\nChoose the course below" << endl;
+
+        int list = 1;
+
+        s.course.erase(s.course.begin());// to delete the first element bcoz it is empty
+        for(auto& i : s.course){
+            cout << list << " - " << i<<endl;
+            list += 1;
+        }
         if (file.is_open())
         {
             file << "PROGRAMME: " << s.programme << endl;
