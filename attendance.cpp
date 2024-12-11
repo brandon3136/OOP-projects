@@ -9,6 +9,7 @@ const string studentDb = "studentsDb.txt";
 const string attendanceFile = "attendance.txt";
 const string signFile = "Account Info.txt";
 int opt = 0;
+int choice1 = 0;
 
 struct SignStruct
 {
@@ -374,7 +375,7 @@ void mainMenu()
         cout << "2. Make an attendance" << endl;
         cout << "3. Account details" << endl;
         cout << "4. Exit" << endl;
-        cout << "Enter your choice (1-3): ";
+        cout << "Enter your choice (1-4): ";
         cin >> opt;
         SignStruct s = loadSignDetails();
 
@@ -388,7 +389,6 @@ void mainMenu()
             break;
         case 3:
             accountDetails();
-            signing();
             break;
         case 4:
             cout << "Exiting...";
@@ -543,7 +543,6 @@ SignStruct loadSignDetails()
 
 void accountDetails()
 {
-    int choice;
     SignStruct s = loadSignDetails();
 
     do
@@ -556,9 +555,9 @@ void accountDetails()
              << endl;
 
         cout << "Enter your choice(1-4): ";
-        cin >> choice;
+        cin >> choice1;
 
-        switch (choice)
+        switch (choice1)
         {
         case 1:
             s.clearingData();
@@ -571,9 +570,13 @@ void accountDetails()
             s.deleteAccount();
             break;
         case 4:
+            mainMenu();
+            break;
+        default:
+            cout << "Wrong Input!" << endl;
             break;
         }
-    } while (true);
+    } while (choice1!=4);
 }
 
 void viewAccountDetails()

@@ -3,9 +3,9 @@ Diploma In computer science
 Second Year
 I
 1
-MTI
-Web Technology
-Computer Networks
-Troubleshooting and Maintenance
 OS
 OOP
+MTI
+Web technology
+Troubleshooting and maintenance
+Computer Networks

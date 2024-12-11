@@ -1,0 +1,7 @@
+PROGRAMME: Diploma In comuter science
+COURSE: OS
+SEMESTER: I
+DATE: 12/12/2024
+
+No.  Student's name                Registration No.    Phone No.           
+1    Brandon Mwakasege             23100423040013      0766086889          
