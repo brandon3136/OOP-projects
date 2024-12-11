@@ -531,13 +531,16 @@ SignStruct loadSignDetails()
         {
             s.course.push_back(courseTemp);
         }
-    }else{
+    }
+    else
+    {
         s.clearingData();
     }
-    if(!s.course.empty()){
+    if (!s.course.empty())
+    {
         s.course.erase(s.course.begin()); // to delete the first element bcoz it is empty
     }
-    
+
     return s;
 }
 
@@ -561,6 +564,7 @@ void accountDetails()
         {
         case 1:
             s.clearingData();
+            cin.ignore();
             signing();
             break;
         case 2:
@@ -576,7 +580,7 @@ void accountDetails()
             cout << "Wrong Input!" << endl;
             break;
         }
-    } while (choice1!=4);
+    } while (choice1 != 4);
 }
 
 void viewAccountDetails()
