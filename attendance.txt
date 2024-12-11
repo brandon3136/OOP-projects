@@ -1,6 +1,0 @@
-PROGRAMME: Computer Enginnering
-COURSE: MTI
-SEMESTER: I
-DATE: 12
-
-No.  Student's name                Registration No.    Phone No.           

@@ -407,7 +407,6 @@ void signing()
     SignStruct s;
 
     cout << "Enter your Name: ";
-    cin.ignore();
     getline(cin, s.username);
 
     cout << "Enter name of the Programme: ";
@@ -519,27 +518,26 @@ SignStruct loadSignDetails()
     ifstream file(signFile);
     if (file.is_open())
     {
-        if (getline(file, s.username))
+        getline(file, s.username);
+        getline(file, s.programme);
+        getline(file, s.year);
+        getline(file, s.semester);
+
+        file >> s.alreadySigned;
+
+        string courseTemp;
+
+        while (getline(file, courseTemp))
         {
-            getline(file, s.programme);
-            getline(file, s.year);
-            getline(file, s.semester);
-
-            file >> s.alreadySigned;
-
-            string courseTemp;
-
-            while (getline(file, courseTemp))
-            {
-                s.course.push_back(courseTemp);
-            }
+            s.course.push_back(courseTemp);
         }
-        else
-        {
-            s.clearingData();
-        }
+    }else{
+        s.clearingData();
     }
-    s.course.erase(s.course.begin()); // to delete the first element bcoz it is empty
+    if(!s.course.empty()){
+        s.course.erase(s.course.begin()); // to delete the first element bcoz it is empty
+    }
+    
     return s;
 }
 
