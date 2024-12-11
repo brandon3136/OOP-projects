@@ -28,11 +28,15 @@ struct SignStruct
         string semester = "";
         course.clear();
     }
-    void deleteAccount(){
+    void deleteAccount()
+    {
         ofstream file(signFile, ios::trunc);
-        if(file.is_open()){
-            cout << "The account details have been deleted"<<endl;
-        }else{
+        if (file.is_open())
+        {
+            cout << "The account details have been deleted" << endl;
+        }
+        else
+        {
             cout << "The account details have not been deleted" << endl;
         }
         file.close();
@@ -271,31 +275,28 @@ void attendance()
         cin.ignore();
         getline(cin, date);
 
-        
         int courseChoice;
         int list;
 
-        s.course.erase(s.course.begin());// to delete the first element bcoz it is empty
-
-        do{
+        do
+        {
             list = 0;
             cout << "\nChoose the course below" << endl;
             for (auto &i : s.course)
             {
                 list += 1;
                 cout << list << " - " << i << endl;
-                
             }
 
             cout << "Enter Your Choice (1 - " << list << "): ";
-            cin >> courseChoice; 
+            cin >> courseChoice;
 
         } while (!(courseChoice <= list && courseChoice > 0));
 
         if (file.is_open())
         {
             file << "PROGRAMME: " << s.programme << endl;
-            file << "COURSE: " << s.course[courseChoice - 1]<<endl;
+            file << "COURSE: " << s.course[courseChoice - 1] << endl;
             file << "SEMESTER: " << s.semester << endl;
             file << "DATE: " << date << endl
                  << endl;
@@ -518,54 +519,87 @@ SignStruct loadSignDetails()
     ifstream file(signFile);
     if (file.is_open())
     {
-        getline(file, s.username);
-        getline(file, s.programme);
-        getline(file, s.year);
-        getline(file, s.semester);
-
-        file >> s.alreadySigned;
-
-        string courseTemp;
-
-        while (getline(file, courseTemp))
+        if (getline(file, s.username))
         {
-            s.course.push_back(courseTemp);
+            getline(file, s.programme);
+            getline(file, s.year);
+            getline(file, s.semester);
+
+            file >> s.alreadySigned;
+
+            string courseTemp;
+
+            while (getline(file, courseTemp))
+            {
+                s.course.push_back(courseTemp);
+            }
+        }
+        else
+        {
+            s.clearingData();
         }
     }
+    s.course.erase(s.course.begin()); // to delete the first element bcoz it is empty
     return s;
 }
 
-void accountDetails(){
+void accountDetails()
+{
     int choice;
     SignStruct s = loadSignDetails();
-    
-    do{
-        cout << "\n------ Account Details ---------"<< endl;
+
+    do
+    {
+        cout << "\n------ Account Details Menu---------" << endl;
         cout << "1. Change account details" << endl;
         cout << "2. View the account details" << endl;
         cout << "3. Delete Account" << endl;
-        cout << "4. Go to main menu\n" << endl;
+        cout << "4. Go to main menu\n"
+             << endl;
 
         cout << "Enter your choice(1-4): ";
         cin >> choice;
 
-        switch(choice){
-            case 1:
-                s.clearingData();
-                signing();
-                break;
-            case 2:
-                
-                break;
-            case 3:
-                s.deleteAccount();
-                break;
-                }
+        switch (choice)
+        {
+        case 1:
+            s.clearingData();
+            signing();
+            break;
+        case 2:
+            viewAccountDetails();
+            break;
+        case 3:
+            s.deleteAccount();
+            break;
+        case 4:
+            break;
+        }
     } while (true);
 }
 
-
-void viewAccountDetails(){
+void viewAccountDetails()
+{
     SignStruct s = loadSignDetails();
-    if(!)
+    int list = 0;
+
+    if (!s.alreadySigned)
+    {
+        cout << "Unable to get account details, please sign in first" << endl;
+    }
+    else
+    {
+        cout << "------ Account Details -------" << endl;
+        cout << "Username: " << s.username << endl;
+        cout << "Programme: " << s.programme << endl;
+        cout << "Year: " << s.year << endl;
+        cout << "Semester: " << s.semester << endl
+             << endl;
+        cout << "Courses of the semester" << endl;
+        for (auto &i : s.course)
+        {
+            list += 1;
+            cout << list << " - " << i << endl;
+        }
+    }
 }
