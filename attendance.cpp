@@ -70,6 +70,7 @@ void signing();
 SignStruct loadSignDetails();
 void accountDetails();
 void viewAccountDetails();
+void updateStudent();
 
 int main()
 {
@@ -85,7 +86,7 @@ int main()
     {
         signing();
     }
-    cout << "Hello, " << s.username << endl;
+    cout << "Hello, CR" << endl;
     mainMenu();
     return 0;
 }
@@ -202,8 +203,7 @@ void readStudent()
 
 void saveStudents(const vector<StudentStruct> &studentsVect)
 {
-    ofstream file(studentDb, ios::trunc);
-    if (file.is_open())
+    ofstream file(studentDb, ios::trunc); 
     {
         for (const auto &s : studentsVect)
         {
@@ -225,7 +225,8 @@ void studentDetailsMenu()
         cout << "1. Add student details" << endl;
         cout << "2. Delete student details" << endl;
         cout << "3. Read student details" << endl;
-        cout << "4. Back to main menu" << endl;
+        cout << "4. Update student details" << endl;
+        cout << "5. Back to main menu" << endl;
 
         cout << "Enter your choice (1-4): ";
         cin >> choice;
@@ -243,15 +244,18 @@ void studentDetailsMenu()
             readStudent();
             break;
         case 4:
+            updateStudent();
+            break;
+        case 5:
             cin.clear();
             mainMenu();
             break;
         default:
-            cout << "\nWrong Input!, please input (1-4)\n"
+            cout << "\nWrong Input!, please input (1-5)\n"
                  << endl;
             break;
         }
-    } while (choice != 4);
+    } while (choice != 5);
 }
 
 void attendance()
@@ -406,7 +410,7 @@ void signing()
     cout << "-------- Sign In to the attendance system -------" << endl;
     SignStruct s;
 
-    cout << "Enter your Name: ";
+    cout << "Enter Name of The class representatives: ";
     getline(cin, s.username);
 
     cout << "Enter name of the Programme: ";
@@ -606,5 +610,43 @@ void viewAccountDetails()
             list += 1;
             cout << list << " - " << i << endl;
         }
+    }
+}
+
+
+void updateStudent(){
+    vector<StudentStruct> studentVect = loadStudent();
+    string reg;
+    bool found = false;
+
+    cout << "\n---- Updating Student Details------" << endl;
+    cout << "Enter the student's registration number to update: ";
+    cin.ignore();
+    getline(cin, reg);
+
+    for(auto& s : studentVect){
+        if(reg == s.regNumber){
+            found = true;
+            cout << "Student found!!" << endl;
+            cout << left << setw(40) << "Student's Name"
+                 << setw(20) << "Registration No."
+                 << setw(20) << "Phone No." << endl;
+
+            s.display();
+            
+            cout << "\nEnter new student's name: ";
+            getline(cin, s.name);
+            cout << "Enter new student'registration number: ";
+            getline(cin, s.regNumber);
+            cout << "Enter new student's phone number: ";
+            getline(cin, s.phoneNo);
+
+            saveStudents(studentVect);
+
+            cout << "Student updated successfully"<<endl;
+        }
+    }
+    if(!found){
+        cout << "student not found";
     }
 }
